@@ -16,7 +16,7 @@ Currently:
 
 ---
 
-## 🌐 What this page is
+## What this page is
 
 This GitHub Page serves as a **public lab notebook** and **portfolio space**:
 - Mini-projects, experiments & prototypes
