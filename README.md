@@ -10,9 +10,8 @@ I'm Philipp – a former IT systems engineer on a mission to become a human-cent
 I bring over 10 years of experience in IT infrastructure and support. In 2025, I made a bold decision to shift my focus toward application development with a strong emphasis on AI, LLMs, and ethical tech.
 
 Currently:
-- AI Trainer at [Outlier.ai](https://outlier.ai)
 - Retraining as an Application Developer (IHK, BBQ Hamburg)
-- Exploring Python, PyTorch & Prompt Engineering
+- Exploring LLMs, Python, PyTorch & Prompt Engineering
 
 ---
 
