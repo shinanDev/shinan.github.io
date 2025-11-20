@@ -1,7 +1,7 @@
 # 👾 shinan.github.io
 
 **Welcome to my digital playground.**  
-I'm Philipp – a former IT systemengineer on a mission to become a Developer.
+I'm Philipp – a former IT system-engineer on a mission to become a Developer.
 
 ---
 
