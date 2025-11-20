@@ -1,7 +1,7 @@
 # 👾 shinan.github.io
 
 **Welcome to my digital playground.**  
-I'm Philipp – a former IT systems engineer on a mission to become a human-centered AI developer.
+I'm Philipp – a former IT systemengineer on a mission to become a Developer.
 
 ---
 
@@ -10,15 +10,17 @@ I'm Philipp – a former IT systems engineer on a mission to become a human-cent
 I bring over 10 years of experience in IT infrastructure and support. In 2025, I made a bold decision to shift my focus toward application development with a strong emphasis on AI, LLMs, and ethical tech.
 
 Currently:
-- Retraining as an Application Developer (IHK, BBQ Hamburg)
-- Exploring LLMs, Python, PyTorch & Prompt Engineering
+- Retraining as an Application Developer (BBQ Hamburg)
+- Learning Fullstack Development
+- First Flask App (Event Management Tool)
 
 ---
 
 ## What this page is
 
 This GitHub Page serves as a **public lab notebook** and **portfolio space**:
-- Mini-projects, experiments & prototypes
+- Mini-projects, experiments, software development
+- Learning Tracker
 - Interactive demos (coming soon)
 - Notes & resources from my AI learning journey
 
