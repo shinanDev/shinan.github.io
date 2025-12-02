@@ -1,19 +1,989 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>shinan.dev</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body class="bg-gray-900 text-white flex items-center justify-center h-screen">
-    <div class="text-center">
-      <h1 class="text-4xl font-bold">Philipp | shinan.dev</h1>
-      <p class="mt-4 text-xl">AI Developer in Training · Python · Ethical AI</p>
-      <div class="mt-6 space-x-4">
-        <a href="https://github.com/shinan-dev" class="underline">GitHub</a>
-        <a href="https://linkedin.com/in/..." class="underline">LinkedIn</a>
-      </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philipp Shinan | Developer & AI Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #707070;
+            --accent-primary: #00ff88;
+            --accent-secondary: #0088ff;
+            --accent-tertiary: #ff0088;
+            --border-color: #252525;
+            --glow: rgba(0, 255, 136, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background grid effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Glow orb effect */
+        .glow-orb {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .glow-orb-1 {
+            top: -300px;
+            right: -200px;
+        }
+
+        .glow-orb-2 {
+            bottom: -300px;
+            left: -200px;
+            background: radial-gradient(circle, rgba(0, 136, 255, 0.1) 0%, transparent 70%);
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Header */
+        header {
+            padding: 4rem 0 2rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 4rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .header-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 2rem;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.6s ease-out 0.1s backwards;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.6s ease-out 0.2s backwards;
+        }
+
+        .highlight {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Quick Links */
+        .quick-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.6s ease-out 0.3s backwards;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--glow), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            border-color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 24px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Section */
+        section {
+            margin-bottom: 6rem;
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        section:nth-child(2) { animation-delay: 0.4s; }
+        section:nth-child(3) { animation-delay: 0.5s; }
+        section:nth-child(4) { animation-delay: 0.6s; }
+        section:nth-child(5) { animation-delay: 0.7s; }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 1rem;
+            color: var(--accent-primary);
+            font-weight: 700;
+        }
+
+        h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--border-color) 0%, transparent 100%);
+        }
+
+        /* About */
+        .about-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .about-text {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+        }
+
+        .experience-years {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .experience-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--accent-primary);
+            line-height: 1;
+        }
+
+        .experience-label {
+            font-size: 0.9rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 0.5rem;
+        }
+
+        /* Journey Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-primary) 0%, var(--border-color) 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.5rem;
+            top: 2rem;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-primary);
+            border: 3px solid var(--bg-primary);
+            border-radius: 50%;
+        }
+
+        .timeline-item:hover {
+            border-color: var(--accent-primary);
+            transform: translateX(8px);
+        }
+
+        .timeline-date {
+            font-size: 0.85rem;
+            color: var(--accent-primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            font-size: 0.9rem;
+            color: var(--text-tertiary);
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Featured Project */
+        .featured-project {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .featured-project::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
+        }
+
+        .featured-project:hover {
+            border-color: var(--accent-primary);
+        }
+
+        .project-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--accent-primary);
+            color: var(--accent-primary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .project-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--accent-primary);
+            flex-shrink: 0;
+        }
+
+        .feature-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-badge {
+            padding: 0.35rem 0.75rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Certifications */
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .cert-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-primary);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.3s ease;
+        }
+
+        .cert-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-4px);
+        }
+
+        .cert-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .cert-issuer {
+            font-size: 0.85rem;
+            color: var(--accent-primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-date {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            margin-bottom: 1rem;
+        }
+
+        .cert-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            padding: 0.25rem 0.5rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* Tech Stack Section */
+        .tech-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .tech-category {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+        }
+
+        .category-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-item {
+            padding: 0.4rem 0.8rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .tech-item:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 0 2rem;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .footer-quote {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-primary);
+        }
+
+        .footer-note {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline {
+                padding-left: 2rem;
+            }
+
+            .timeline-item::before {
+                left: -2.5rem;
+            }
+
+            .featured-project {
+                padding: 2rem;
+            }
+
+            .tech-categories {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-orb glow-orb-1"></div>
+    <div class="glow-orb glow-orb-2"></div>
+
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="header-text">
+                    <div class="status-badge">
+                        <span class="status-dot"></span>
+                        <span>Open to opportunities</span>
+                    </div>
+                    <h1>Philipp Shinan</h1>
+                    <p class="subtitle">
+                        Fachinformatiker für Anwendungsentwicklung • <span class="highlight">AI Engineer</span> • Future-Ready Developer
+                    </p>
+                    <div class="quick-links">
+                        <a href="https://www.linkedin.com/in/shinan/" class="btn btn-primary" target="_blank">
+                            <span>LinkedIn</span>
+                            <span>→</span>
+                        </a>
+                        <a href="https://github.com/shinan" class="btn" target="_blank">
+                            <span>GitHub</span>
+                            <span>↗</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section id="about">
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <h2>About Me</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        I'm on a mission to build <span class="highlight">AI systems that center people, not just performance</span>. 
+                        Currently training as a <strong>Fachinformatiker für Anwendungsentwicklung (IHK)</strong> with focus on Python, 
+                        software architecture, and responsible AI development.
+                    </p>
+                    <p>
+                        My journey combines <strong>11 years of hands-on IT infrastructure experience</strong> with modern AI development. 
+                        From field service technician to system engineer, and now diving deep into application development, LLMs, and ethical tech.
+                    </p>
+                    <p>
+                        I bring a unique perspective: understanding both the infrastructure that powers technology and the code that shapes 
+                        our AI future. This allows me to bridge technical implementation with real-world deployment and ethical considerations.
+                    </p>
+                </div>
+                <div class="experience-years">
+                    <div class="experience-number">11</div>
+                    <div class="experience-label">Years in IT</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="journey">
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <h2>Professional Journey</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">June 2025 - Present</div>
+                    <div class="timeline-title">Application Developer Training</div>
+                    <div class="timeline-company">Fachinformatiker für Anwendungsentwicklung (IHK)</div>
+                    <div class="timeline-desc">
+                        Intensive training in Python, Java, software architecture, Linux administration, networking (Cisco), 
+                        cybersecurity, and AI development. Hands-on labs including penetration testing with GOAD environments.
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">July 2025 - Present</div>
+                    <div class="timeline-title">Junior Developer</div>
+                    <div class="timeline-company">FemAI</div>
+                    <div class="timeline-desc">
+                        Contributing to ethical and inclusive AI applications that promote digital literacy, fairness, and human rights. 
+                        Working with Python, PyCharm, and AI frameworks.
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">January 2025 - October 2025</div>
+                    <div class="timeline-title">AI Trainer</div>
+                    <div class="timeline-company">Outlier.ai (Freelance)</div>
+                    <div class="timeline-desc">
+                        Developed and refined prompts for Large Language Model training workflows. 
+                        Gained hands-on experience in prompt engineering and LLM evaluation.
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">May 2021 - June 2024</div>
+                    <div class="timeline-title">System Engineer | Server/Storage & Virtualization</div>
+                    <div class="timeline-company">Vater Unternehmensgruppe</div>
+                    <div class="timeline-desc">
+                        Planned and implemented IT infrastructure projects with HPE Nimble, Pure Storage, VMware, and Veeam. 
+                        Managed central storage systems and virtualization environments for enterprise clients.
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">February 2018 - April 2021</div>
+                    <div class="timeline-title">1st Level Supporter</div>
+                    <div class="timeline-company">3NET GmbH</div>
+                    <div class="timeline-desc">
+                        Managed IT service support for enterprise clients. Handled server systems, Microsoft Exchange, 
+                        telecommunications, and office software applications.
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2014 - 2018</div>
+                    <div class="timeline-title">IT Technician | Field Service</div>
+                    <div class="timeline-company">Various Companies (Hamburg)</div>
+                    <div class="timeline-desc">
+                        On-site technical support, server and client maintenance, system repairs, and IT infrastructure troubleshooting 
+                        for businesses across Hamburg.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="project">
+            <div class="section-header">
+                <span class="section-number">03</span>
+                <h2>Featured Project</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="featured-project">
+                <span class="project-tag">Production Ready</span>
+                <h3 class="project-title">Tempest — Event Management Platform</h3>
+                <p class="project-desc">
+                    A comprehensive Flask web application built for managing artists and technical requirements for psytrance events. 
+                    Developed from concept to deployment, featuring modern authentication, database management, and dynamic tech rider submission systems.
+                </p>
+                <div class="project-features">
+                    <div class="feature-item">
+                        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="feature-text">User authentication & authorization</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="feature-text">SQLAlchemy database architecture</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="feature-text">Dynamic tech rider submission system</span>
+                    </div>
+                    <div class="feature-item">
+                        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span class="feature-text">Responsive UI with modern design</span>
+                    </div>
+                </div>
+                <div class="tech-stack">
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">Flask</span>
+                    <span class="tech-badge">SQLAlchemy</span>
+                    <span class="tech-badge">HTML/CSS</span>
+                    <span class="tech-badge">JavaScript</span>
+                    <span class="tech-badge">Git</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="certifications">
+            <div class="section-header">
+                <span class="section-number">04</span>
+                <h2>Certifications</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="certs-grid">
+                <div class="cert-card">
+                    <div class="cert-issuer">Linux Professional Institute (LPI)</div>
+                    <div class="cert-name">Linux Essentials Certificate</div>
+                    <div class="cert-date">Issued November 2025</div>
+                    <div class="cert-skills">
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">Shell Scripting</span>
+                        <span class="skill-tag">File Permissions</span>
+                        <span class="skill-tag">DNS Configuration</span>
+                        <span class="skill-tag">Bash</span>
+                    </div>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-issuer">Google Cloud</div>
+                    <div class="cert-name">Introduction to Large Language Models</div>
+                    <div class="cert-date">Issued January 2025</div>
+                    <div class="cert-skills">
+                        <span class="skill-tag">LLMs / NLP</span>
+                        <span class="skill-tag">Large Language Models</span>
+                        <span class="skill-tag">Artificial Intelligence</span>
+                    </div>
+                </div>
+
+                <div class="cert-card">
+                    <div class="cert-issuer">Canvas Credentials (Badgr)</div>
+                    <div class="cert-name">LeadWithAIAgents Hackathon 2025</div>
+                    <div class="cert-date">Issued July 2025</div>
+                    <div class="cert-skills">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Prompt Engineering</span>
+                        <span class="skill-tag">AI Agents</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tech-stack">
+            <div class="section-header">
+                <span class="section-number">05</span>
+                <h2>Tech Stack</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="tech-categories">
+                <div class="tech-category">
+                    <div class="category-title">
+                        <span>💻</span>
+                        <span>Languages & Core</span>
+                    </div>
+                    <div class="tech-list">
+                        <span class="tech-item">Python</span>
+                        <span class="tech-item">Java</span>
+                        <span class="tech-item">HTML/CSS</span>
+                        <span class="tech-item">JavaScript</span>
+                        <span class="tech-item">SQL</span>
+                        <span class="tech-item">Bash</span>
+                    </div>
+                </div>
+
+                <div class="tech-category">
+                    <div class="category-title">
+                        <span>🤖</span>
+                        <span>AI & ML</span>
+                    </div>
+                    <div class="tech-list">
+                        <span class="tech-item">OpenAI</span>
+                        <span class="tech-item">Anthropic Claude</span>
+                        <span class="tech-item">Ollama</span>
+                        <span class="tech-item">Llama</span>
+                        <span class="tech-item">Mistral</span>
+                        <span class="tech-item">PyTorch</span>
+                        <span class="tech-item">HuggingFace</span>
+                        <span class="tech-item">LangChain</span>
+                    </div>
+                </div>
+
+                <div class="tech-category">
+                    <div class="category-title">
+                        <span>🔧</span>
+                        <span>Frameworks & Tools</span>
+                    </div>
+                    <div class="tech-list">
+                        <span class="tech-item">Flask</span>
+                        <span class="tech-item">SQLAlchemy</span>
+                        <span class="tech-item">Git</span>
+                        <span class="tech-item">GitHub Copilot</span>
+                        <span class="tech-item">PyCharm</span>
+                        <span class="tech-item">VS Code</span>
+                    </div>
+                </div>
+
+                <div class="tech-category">
+                    <div class="category-title">
+                        <span>🖥️</span>
+                        <span>Systems & Infrastructure</span>
+                    </div>
+                    <div class="tech-list">
+                        <span class="tech-item">Linux</span>
+                        <span class="tech-item">Windows Server</span>
+                        <span class="tech-item">Cisco Networking</span>
+                        <span class="tech-item">DNS/BIND</span>
+                        <span class="tech-item">VMware</span>
+                        <span class="tech-item">Veeam</span>
+                        <span class="tech-item">HPE Nimble</span>
+                        <span class="tech-item">Pure Storage</span>
+                    </div>
+                </div>
+
+                <div class="tech-category">
+                    <div class="category-title">
+                        <span>🔒</span>
+                        <span>Security & Testing</span>
+                    </div>
+                    <div class="tech-list">
+                        <span class="tech-item">Cybersecurity</span>
+                        <span class="tech-item">Penetration Testing</span>
+                        <span class="tech-item">GOAD</span>
+                        <span class="tech-item">GPG Encryption</span>
+                        <span class="tech-item">SSH</span>
+                    </div>
+                </div>
+
+                <div class="tech-category">
+                    <div class="category-title">
+                        <span>📚</span>
+                        <span>Methodologies</span>
+                    </div>
+                    <div class="tech-list">
+                        <span class="tech-item">Prompt Engineering</span>
+                        <span class="tech-item">Software Architecture</span>
+                        <span class="tech-item">Research Workflows</span>
+                        <span class="tech-item">Ethical AI</span>
+                        <span class="tech-item">Agile Development</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-quote">
+                "We're not just building AI. We're building the future we'll have to live in."
+            </div>
+            <div class="footer-links">
+                <a href="https://www.linkedin.com/in/shinan/" class="footer-link" target="_blank">LinkedIn</a>
+                <a href="https://github.com/shinan" class="footer-link" target="_blank">GitHub</a>
+            </div>
+            <p class="footer-note">
+                Hamburg, Germany • Open to opportunities in AI & Software Development
+            </p>
+        </footer>
     </div>
-  </body>
+</body>
 </html>
