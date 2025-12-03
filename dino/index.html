@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dino Runner</title>
+  <style>
+    :root {
+      color-scheme: dark;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #ddd;
+    }
+
+    .game-container {
+      text-align: center;
+    }
+
+    #game {
+      background: #111;
+      border-radius: 8px;
+      border: 2px solid #444;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
+      display: block;
+      margin: 0 auto 0.75rem;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    .game-over {
+      color: #ff6b6b;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <canvas id="game" width="800" height="200"></canvas>
+    <p id="hint">Press SPACE or ↑ to jump • R to restart</p>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("game");
+    const ctx = canvas.getContext("2d");
+
+    const groundY = 160;
+
+    const dino = {
+      x: 50,
+      y: groundY - 40,
+      width: 35,
+      height: 40,
+      vy: 0,
+      jumping: false
+    };
+
+    const gravity = 0.7;
+    let obstacles = [];
+    let speed = 6;
+    let frame = 0;
+    let score = 0;
+    let gameOver = false;
+
+    function spawnObstacle() {
+      const width = 20 + Math.random() * 20;
+      const height = 20 + Math.random() * 30;
+
+      obstacles.push({
+        x: canvas.width + 10,
+        y: groundY - height,
+        width,
+        height
+      });
+    }
+
+    function resetGame() {
+      obstacles = [];
+      speed = 6;
+      frame = 0;
+      score = 0;
+      gameOver = false;
+      dino.y = groundY - dino.height;
+      dino.vy = 0;
+      dino.jumping = false;
+      document.getElementById("hint").classList.remove("game-over");
+      loop();
+    }
+
+    function update() {
+      if (gameOver) return;
+
+      // Dino Physik
+      dino.vy += gravity;
+      dino.y += dino.vy;
+
+      if (dino.y > groundY - dino.height) {
+        dino.y = groundY - dino.height;
+        dino.vy = 0;
+        dino.jumping = false;
+      }
+
+      // Hindernisse bewegen
+      obstacles.forEach(o => {
+        o.x -= speed;
+      });
+
+      // alte Hindernisse entfernen
+      obstacles = obstacles.filter(o => o.x + o.width > 0);
+
+      // alle ~90 Frames neues Hindernis
+      if (frame % 90 === 0) {
+        spawnObstacle();
+      }
+
+      // Score + Schwierigkeit
+      score++;
+      if (score % 600 === 0) {
+        speed += 0.5;
+      }
+
+      // Kollision
+      for (const o of obstacles) {
+        if (
+          dino.x < o.x + o.width &&
+          dino.x + dino.width > o.x &&
+          dino.y < o.y + o.height &&
+          dino.y + dino.height > o.y
+        ) {
+          gameOver = true;
+          document.getElementById("hint").textContent =
+            "Game Over – press R to restart";
+          document.getElementById("hint").classList.add("game-over");
+        }
+      }
+
+      frame++;
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Hintergrund
+      ctx.fillStyle = "#000";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Bodenlinie
+      ctx.strokeStyle = "#555";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(0, groundY);
+      ctx.lineTo(canvas.width, groundY);
+      ctx.stroke();
+
+      // Dino (kleiner Block-T-Rex)
+      ctx.fillStyle = "#eee";
+      ctx.fillRect(dino.x, dino.y, dino.width, dino.height);
+
+      // simpel „Kopf“
+      ctx.fillStyle = "#000";
+      ctx.fillRect(dino.x + dino.width - 10, dino.y + 8, 4, 4);
+
+      // Hindernisse
+      ctx.fillStyle = "#8bc34a";
+      obstacles.forEach(o => {
+        ctx.fillRect(o.x, o.y, o.width, o.height);
+      });
+
+      // Score
+      ctx.fillStyle = "#aaa";
+      ctx.font = "16px system-ui";
+      ctx.fillText("Score: " + score, canvas.width - 130, 30);
+    }
+
+    function loop() {
+      if (!gameOver) {
+        update();
+        draw();
+        requestAnimationFrame(loop);
+      } else {
+        draw();
+      }
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if ((e.code === "Space" || e.code === "ArrowUp") && !dino.jumping && !gameOver) {
+        dino.vy = -13;
+        dino.jumping = true;
+      }
+
+      if (e.code === "KeyR") {
+        resetGame();
+      }
+    });
+
+    // Start
+    loop();
+  </script>
+</body>
+</html>
