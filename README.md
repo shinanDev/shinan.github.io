@@ -1,47 +1,20 @@
-# 👾 shinan.github.io
+# shinanDev — Automation. Ethical AI.
 
-**Welcome to my digital playground.**  
-I'm Philipp – a former IT system-engineer on a mission to become a Developer.
-
----
+Built like the site: dark, matte, and precise.
 
 ## About me
-
-I bring over 10 years of experience in IT infrastructure and support. In 2025, I made a bold decision to shift my focus toward application development with a strong emphasis on AI, LLMs, and ethical tech.
-
-Currently:
-- Retraining as an Application Developer (BBQ Hamburg)
-- Learning Fullstack Development
-- First Flask App (Event Management Tool)
-
----
+11+ years in IT infrastructure, now channeling that rigor into AI, automation, and modern web development.
 
 ## What this page is
+A lab notebook and portfolio hybrid—shipping experiments, documenting learnings, and keeping a transparent trail of the work.
 
-This GitHub Page serves as a **public lab notebook** and **portfolio space**:
-- Mini-projects, experiments, software development
-- Learning Tracker
-- Interactive demos (coming soon)
-- Notes & resources from my AI learning journey
+## Tech stack
+- Languages: Python, TypeScript/JavaScript, Bash
+- AI tools: OpenAI APIs, LangChain, prompt engineering toolkits, evaluation harnesses
+- Infrastructure: Linux-first, containerized services, CI/CD, observability, networking fundamentals
 
----
+## Connect
+Let’s collaborate on ethical, reliable systems. LinkedIn: [linkedin.com/in/shinandev](https://www.linkedin.com/in/shinandev)
 
-## Tech Stack I'm exploring
-
-- `Python`, `HTML/CSS`, `JavaScript`
-- `LLMs`, `OpenAI`, `Anthropic`, `LangChain`
-- `PyTorch`, `HuggingFace`, `GitHub Copilot`
-- `Prompt Engineering` & `Research Workflows`
-
----
-
-## 💬 Let's connect
-
-If you're working in AI, ethics, NLP, or building the future of human-machine interaction —  
-**I'd love to connect.**
-
-Find me on [LinkedIn](https://www.linkedin.com/in/philipp-prinzen-46a51a166/) or keep watching this space.
-
----
-
-> “We’re not just building AI. We’re building the future we’ll have to live in.”
+## Closing
+“We’re not just building AI — we’re building the future we’ll have to live in.”
