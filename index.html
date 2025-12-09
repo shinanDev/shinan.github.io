@@ -1,993 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>shinanDev | Developer & AI Engineer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #111111;
-            --bg-tertiary: #1a1a1a;
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --text-tertiary: #707070;
-            --accent-primary: #00ff88;
-            --accent-secondary: #0088ff;
-            --accent-tertiary: #ff0088;
-            --border-color: #252525;
-            --glow: rgba(0, 255, 136, 0.15);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'IBM Plex Mono', monospace;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Background grid effect */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 50px 50px;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Glow orb effect */
-        .glow-orb {
-            position: fixed;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 1;
-            animation: float 20s ease-in-out infinite;
-        }
-
-        .glow-orb-1 {
-            top: -300px;
-            right: -200px;
-        }
-
-        .glow-orb-2 {
-            bottom: -300px;
-            left: -200px;
-            background: radial-gradient(circle, rgba(0, 136, 255, 0.1) 0%, transparent 70%);
-            animation-delay: -10s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -30px) scale(1.1); }
-            66% { transform: translate(-20px, 20px) scale(0.9); }
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Header */
-        header {
-            padding: 4rem 0 2rem;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 4rem;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .header-text {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 2rem;
-            font-size: 0.85rem;
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--accent-primary);
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
-        h1 {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 0.6s ease-out 0.1s backwards;
-        }
-
-        .subtitle {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            animation: fadeInUp 0.6s ease-out 0.2s backwards;
-        }
-
-        .highlight {
-            color: var(--accent-primary);
-            font-weight: 600;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Quick Links */
-        .quick-links {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            animation: fadeInUp 0.6s ease-out 0.3s backwards;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            text-decoration: none;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, var(--glow), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn:hover {
-            border-color: var(--accent-primary);
-            transform: translateY(-2px);
-        }
-
-        .btn-primary {
-            background: var(--accent-primary);
-            color: var(--bg-primary);
-            border-color: var(--accent-primary);
-            font-weight: 600;
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 8px 24px rgba(0, 255, 136, 0.3);
-        }
-
-        /* Section */
-        section {
-            margin-bottom: 6rem;
-            animation: fadeInUp 0.6s ease-out backwards;
-        }
-
-        section:nth-child(2) { animation-delay: 0.4s; }
-        section:nth-child(3) { animation-delay: 0.5s; }
-        section:nth-child(4) { animation-delay: 0.6s; }
-        section:nth-child(5) { animation-delay: 0.7s; }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .section-number {
-            font-family: 'Syne', sans-serif;
-            font-size: 1rem;
-            color: var(--accent-primary);
-            font-weight: 700;
-        }
-
-        h2 {
-            font-family: 'Syne', sans-serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .section-line {
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(90deg, var(--border-color) 0%, transparent 100%);
-        }
-
-        /* About */
-        .about-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 3rem;
-            align-items: start;
-        }
-
-        .about-text {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
-        }
-
-        .about-text p {
-            margin-bottom: 1rem;
-        }
-
-        .experience-years {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .experience-number {
-            font-family: 'Syne', sans-serif;
-            font-size: 4rem;
-            font-weight: 800;
-            color: var(--accent-primary);
-            line-height: 1;
-        }
-
-        .experience-label {
-            font-size: 0.9rem;
-            color: var(--text-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 0.5rem;
-        }
-
-        /* Journey Timeline */
-        .timeline {
-            position: relative;
-            padding-left: 3rem;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, var(--accent-primary) 0%, var(--border-color) 100%);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 2.5rem;
-            padding: 1.5rem;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -3.5rem;
-            top: 2rem;
-            width: 12px;
-            height: 12px;
-            background: var(--accent-primary);
-            border: 3px solid var(--bg-primary);
-            border-radius: 50%;
-        }
-
-        .timeline-item:hover {
-            border-color: var(--accent-primary);
-            transform: translateX(8px);
-        }
-
-        .timeline-date {
-            font-size: 0.85rem;
-            color: var(--accent-primary);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-company {
-            font-size: 0.9rem;
-            color: var(--text-tertiary);
-            margin-bottom: 0.75rem;
-        }
-
-        .timeline-desc {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* Featured Project */
-        .featured-project {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            padding: 3rem;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .featured-project::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
-        }
-
-        .featured-project:hover {
-            border-color: var(--accent-primary);
-        }
-
-        .project-tag {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: rgba(0, 255, 136, 0.1);
-            border: 1px solid var(--accent-primary);
-            color: var(--accent-primary);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .project-desc {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-        }
-
-        .feature-icon {
-            width: 24px;
-            height: 24px;
-            color: var(--accent-primary);
-            flex-shrink: 0;
-        }
-
-        .feature-text {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .tech-badge {
-            padding: 0.35rem 0.75rem;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-
-        /* Certifications */
-        .certs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .cert-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            padding: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .cert-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--accent-primary);
-            transform: scaleY(0);
-            transform-origin: bottom;
-            transition: transform 0.3s ease;
-        }
-
-        .cert-card:hover {
-            border-color: var(--accent-primary);
-            transform: translateY(-4px);
-        }
-
-        .cert-card:hover::before {
-            transform: scaleY(1);
-        }
-
-        .cert-issuer {
-            font-size: 0.85rem;
-            color: var(--accent-primary);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .cert-name {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .cert-date {
-            font-size: 0.85rem;
-            color: var(--text-tertiary);
-            margin-bottom: 1rem;
-        }
-
-        .cert-skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .skill-tag {
-            padding: 0.25rem 0.5rem;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-        }
-
-        /* Tech Stack Section */
-        .tech-categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .tech-category {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            padding: 2rem;
-        }
-
-        .category-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--accent-primary);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .tech-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .tech-item {
-            padding: 0.4rem 0.8rem;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border-color);
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            transition: all 0.2s ease;
-        }
-
-        .tech-item:hover {
-            border-color: var(--accent-primary);
-            color: var(--accent-primary);
-            transform: translateY(-2px);
-        }
-
-        /* Footer */
-        footer {
-            padding: 4rem 0 2rem;
-            border-top: 1px solid var(--border-color);
-            text-align: center;
-        }
-
-        .footer-quote {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            font-style: italic;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-link:hover {
-            color: var(--accent-primary);
-        }
-
-        .footer-note {
-            font-size: 0.85rem;
-            color: var(--text-tertiary);
-        }
-
-        /* Dino Wrapper */
-          .dino-wrapper {
-            width: 800px;
-            max-width: 100%;
-            aspect-ratio: 4 / 1;
-            margin: 2rem auto;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
-        }
-
-          .dino-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-            display: block;
-        }
-
-          #dino h2 {
-            text-align: center;
-            margin-bottom: 0.5rem;
-              
-        /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 1.5rem;
-            }
-
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .timeline {
-                padding-left: 2rem;
-            }
-
-            .timeline-item::before {
-                left: -2.5rem;
-            }
-
-            .featured-project {
-                padding: 2rem;
-            }
-
-            .tech-categories {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>shinanDev — Automation. Ethical AI.</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="glow-orb glow-orb-1"></div>
-    <div class="glow-orb glow-orb-2"></div>
-
-    <div class="container">
-        <header>
-            <div class="header-content">
-                <div class="header-text">
-                    <div class="status-badge">
-                        <span class="status-dot"></span>
-                        <span>Open to opportunities</span>
-                    </div>
-                    <h1>shinanDev</h1>
-                    <p class="subtitle">
-                        Fachinformatiker für Anwendungsentwicklung • <span class="highlight">AI Engineer</span> • Future-Ready Developer
-                    </p>
-                    <div class="quick-links">
-                        <a href="https://www.linkedin.com/in/philipp-prinzen-46a51a166/" class="btn btn-primary" target="_blank">
-                            <span>LinkedIn</span>
-                            <span>→</span>
-                        </a>
-                        <a href="https://github.com/shinanDev" class="btn" target="_blank">
-                            <span>GitHub</span>
-                            <span>↗</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <section id="about">
-            <div class="section-header">
-                <span class="section-number">01</span>
-                <h2>About Me</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>
-                        I'm on a mission to build <span class="highlight">AI systems that center people, not just performance</span>. 
-                        Currently training as a <strong>Fachinformatiker für Anwendungsentwicklung (IHK)</strong> with focus on Python, 
-                        software architecture, and responsible AI development.
-                    </p>
-                    <p>
-                        My journey combines <strong>11 years of hands-on IT infrastructure experience</strong> with modern AI development. 
-                        From field service technician to system engineer, and now diving deep into application development, LLMs, and ethical tech.
-                    </p>
-                    <p>
-                        I bring a unique perspective: understanding both the infrastructure that powers technology and the code that shapes 
-                        our AI future. This allows me to bridge technical implementation with real-world deployment and ethical considerations.
-                    </p>
-                </div>
-                <div class="experience-years">
-                    <div class="experience-number">11</div>
-                    <div class="experience-label">Years in IT</div>
-                </div>
-            </div>
-        </section>
-            <section id="dino">
-              <h2>Take a break – play Dino 🦖</h2>
-                  <div class="dino-wrapper">
-                    <iframe
-                      src="dino/index.html"
-                      loading="lazy"
-                      title="Dino Runner">
-                        </iframe>
-                          </div>
-                            </section>
-                                <section id="journey">
-            <div class="section-header">
-                <span class="section-number">02</span>
-                <h2>Professional Journey</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-date">June 2025 - Present</div>
-                    <div class="timeline-title">Application Developer Training</div>
-                    <div class="timeline-company">Fachinformatiker für Anwendungsentwicklung (IHK)</div>
-                    <div class="timeline-desc">
-                        Intensive training in Python, Java, software architecture, Linux administration, networking (Cisco), 
-                        cybersecurity, and AI development. Hands-on labs including penetration testing with GOAD environments.
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">July 2025 - Present</div>
-                    <div class="timeline-title">Junior Developer</div>
-                    <div class="timeline-company">FemAI</div>
-                    <div class="timeline-desc">
-                        Contributing to ethical and inclusive AI applications that promote digital literacy, fairness, and human rights. 
-                        Working with Python, PyCharm, and AI frameworks.
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">January 2025 - October 2025</div>
-                    <div class="timeline-title">AI Trainer</div>
-                    <div class="timeline-company">Outlier.ai (Freelance)</div>
-                    <div class="timeline-desc">
-                        Developed and refined prompts for Large Language Model training workflows. 
-                        Gained hands-on experience in prompt engineering and LLM evaluation.
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">May 2021 - June 2024</div>
-                    <div class="timeline-title">System Engineer | Server/Storage & Virtualization</div>
-                    <div class="timeline-company">Vater Unternehmensgruppe</div>
-                    <div class="timeline-desc">
-                        Planned and implemented IT infrastructure projects with HPE Nimble, Pure Storage, VMware, and Veeam. 
-                        Managed central storage systems and virtualization environments for enterprise clients.
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">February 2018 - April 2021</div>
-                    <div class="timeline-title">1st Level Supporter</div>
-                    <div class="timeline-company">3NET GmbH</div>
-                    <div class="timeline-desc">
-                        Managed IT service support for enterprise clients. Handled server systems, Microsoft Exchange, 
-                        telecommunications, and office software applications.
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-date">2014 - 2018</div>
-                    <div class="timeline-title">IT Technician | Field Service</div>
-                    <div class="timeline-company">Various Companies (Hamburg)</div>
-                    <div class="timeline-desc">
-                        On-site technical support, server and client maintenance, system repairs, and IT infrastructure troubleshooting 
-                        for businesses across Hamburg.
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="project">
-            <div class="section-header">
-                <span class="section-number">03</span>
-                <h2>Featured Project</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="featured-project">
-                <span class="project-tag">Production Ready</span>
-                <h3 class="project-title">Tempest — Event Management Platform</h3>
-                <p class="project-desc">
-                    A comprehensive Flask web application built for managing artists and technical requirements for psytrance events. 
-                    Developed from concept to deployment, featuring modern authentication, database management, and dynamic tech rider submission systems.
-                </p>
-                <div class="project-features">
-                    <div class="feature-item">
-                        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                        <span class="feature-text">User authentication & authorization</span>
-                    </div>
-                    <div class="feature-item">
-                        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                        <span class="feature-text">SQLAlchemy database architecture</span>
-                    </div>
-                    <div class="feature-item">
-                        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                        <span class="feature-text">Dynamic tech rider submission system</span>
-                    </div>
-                    <div class="feature-item">
-                        <svg class="feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                        <span class="feature-text">Responsive UI with modern design</span>
-                    </div>
-                </div>
-                <div class="tech-stack">
-                    <span class="tech-badge">Python</span>
-                    <span class="tech-badge">Flask</span>
-                    <span class="tech-badge">SQLAlchemy</span>
-                    <span class="tech-badge">HTML/CSS</span>
-                    <span class="tech-badge">JavaScript</span>
-                    <span class="tech-badge">Git</span>
-                </div>
-            </div>
-        </section>
-
-        <section id="certifications">
-            <div class="section-header">
-                <span class="section-number">04</span>
-                <h2>Certifications</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="certs-grid">
-                <div class="cert-card">
-                    <div class="cert-issuer">Linux Professional Institute (LPI)</div>
-                    <div class="cert-name">Linux Essentials Certificate</div>
-                    <div class="cert-date">Issued November 2025</div>
-                    <div class="cert-skills">
-                        <span class="skill-tag">Linux</span>
-                        <span class="skill-tag">Shell Scripting</span>
-                        <span class="skill-tag">File Permissions</span>
-                        <span class="skill-tag">DNS Configuration</span>
-                        <span class="skill-tag">Bash</span>
-                    </div>
-                </div>
-
-                <div class="cert-card">
-                    <div class="cert-issuer">Google Cloud</div>
-                    <div class="cert-name">Introduction to Large Language Models</div>
-                    <div class="cert-date">Issued January 2025</div>
-                    <div class="cert-skills">
-                        <span class="skill-tag">LLMs / NLP</span>
-                        <span class="skill-tag">Large Language Models</span>
-                        <span class="skill-tag">Artificial Intelligence</span>
-                    </div>
-                </div>
-
-                <div class="cert-card">
-                    <div class="cert-issuer">Canvas Credentials (Badgr)</div>
-                    <div class="cert-name">LeadWithAIAgents Hackathon 2025</div>
-                    <div class="cert-date">Issued July 2025</div>
-                    <div class="cert-skills">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">Prompt Engineering</span>
-                        <span class="skill-tag">AI Agents</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="tech-stack">
-            <div class="section-header">
-                <span class="section-number">05</span>
-                <h2>Tech Stack</h2>
-                <div class="section-line"></div>
-            </div>
-            <div class="tech-categories">
-                <div class="tech-category">
-                    <div class="category-title">
-                        <span>Languages & Core</span>
-                    </div>
-                    <div class="tech-list">
-                        <span class="tech-item">Python</span>
-                        <span class="tech-item">HTML/CSS</span>
-                        <span class="tech-item">SQL</span>
-                        <span class="tech-item">Bash</span>
-                    </div>
-                </div>
-
-                <div class="tech-category">
-                    <div class="category-title">
-                        <span>AI & ML</span>
-                    </div>
-                    <div class="tech-list">
-                        <span class="tech-item">OpenAI</span>
-                        <span class="tech-item">Anthropic Claude</span>
-                        <span class="tech-item">Ollama</span>
-                        <span class="tech-item">Mistral</span>
-                        <span class="tech-item">Lifelong Learner</span>
-                    </div>
-                </div>
-
-                <div class="tech-category">
-                    <div class="category-title">
-                        <span>Frameworks & Tools</span>
-                    </div>
-                    <div class="tech-list">
-                        <span class="tech-item">Flask</span>
-                        <span class="tech-item">SQLAlchemy</span>
-                        <span class="tech-item">PyCharm</span>
-                        <span class="tech-item">VS Code</span>
-                    </div>
-                </div>
-
-                <div class="tech-category">
-                    <div class="category-title">
-                        <span>Systems & Infrastructure</span>
-                    </div>
-                    <div class="tech-list">
-                        <span class="tech-item">Linux</span>
-                        <span class="tech-item">Windows Server</span>
-                        <span class="tech-item">Cisco Networking</span>
-                        <span class="tech-item">DNS/DHCP/AD</span>
-                        <span class="tech-item">Azure</span>
-                        <span class="tech-item">VMware</span>
-                        <span class="tech-item">Veeam</span>
-                    </div>
-                </div>
-
-                <div class="tech-category">
-                    <div class="category-title">
-                        <span>Methodologies</span>
-                    </div>
-                    <div class="tech-list">
-                        <span class="tech-item">Prompt Engineering</span>
-                        <span class="tech-item">Context Engineering</span>
-                        <span class="tech-item">Software Architecture</span>
-                        <span class="tech-item">Research Workflows</span>
-                        <span class="tech-item">Ethical AI</span>
-                        <span class="tech-item">Agile Development</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <footer>
-            <div class="footer-quote">
-                "We're not just building AI - we're building the future we'll have to live in."
-            </div>
-            <div class="footer-links">
-                <a href="https://www.linkedin.com/in/philipp-prinzen-46a51a166/" class="footer-link" target="_blank">LinkedIn</a>
-                <a href="https://github.com/shinanDev" class="footer-link" target="_blank">GitHub</a>
-            </div>
-            <p class="footer-note">
-                Hamburg, Germany • Open to opportunities in AI & Software Development
-            </p>
-        </footer>
+  <header class="site-header">
+    <div class="nav-inner">
+      <a class="brand" href="#hero">
+        <img src="images/seebar-logo.png" alt="shinanDev logo">
+        <span>shinanDev</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#stack">Tech Stack</a>
+        <a href="#journey">Journey</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
+  </header>
+
+  <div class="mobile-menu" aria-hidden="true">
+    <nav aria-label="Mobile navigation">
+      <a href="#about">About</a>
+      <a href="#stack">Tech Stack</a>
+      <a href="#journey">Journey</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="menu-overlay"></div>
+
+  <main>
+    <section id="hero" class="hero reveal">
+      <div class="hero-text">
+        <p class="eyebrow">Developer · AI Engineer · Hamburg</p>
+        <h1>shinanDev — Automation. Ethical AI.</h1>
+        <p class="subline">Building tools and systems where automation, infrastructure experience and Ethical AI come together. From sysadmin roots to application development and AI workflows.</p>
+        <div class="cta-group">
+          <a class="btn primary" href="https://github.com/shinanDev" target="_blank" rel="noopener">View GitHub</a>
+          <a class="btn secondary" href="https://www.linkedin.com/in/philipp-prinzen-46a51a166/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="portrait-card">
+          <img src="images/portrait.jpg" alt="Portrait of Philipp">
+          <div class="portrait-badges">
+            <span>Fachinformatiker für Anwendungsentwicklung (IHK)</span>
+            <span>AI Engineer in training</span>
+            <span>11+ years in IT infrastructure</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section reveal">
+      <div class="section-heading">
+        <h2>About</h2>
+        <p>From field service and system engineering to application development and Ethical AI – bridging infrastructure, code and responsible automation.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-cards">
+          <article class="about-card">
+            <h3>Background</h3>
+            <p>11 years in IT system integration, field service and enterprise support with a hands-on mindset.</p>
+          </article>
+          <article class="about-card">
+            <h3>Experience</h3>
+            <p>System engineer across storage, virtualization, backup, networking and mission-critical enterprise environments.</p>
+          </article>
+          <article class="about-card">
+            <h3>Now</h3>
+            <p>In retraining as Developer (IHK) focused on Python, AI workflows, Ethical AI and LLM training.</p>
+          </article>
+        </div>
+        <div class="about-pillars">
+          <div class="pillar">Automation</div>
+          <div class="pillar">Ethical AI</div>
+          <div class="pillar">Context Engineering</div>
+          <div class="pillar">Hands-on infrastructure</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="stack" class="section reveal">
+      <div class="section-heading">
+        <h2>Tech Stack</h2>
+        <p>Tools and practices that power automation and Ethical AI delivery.</p>
+      </div>
+      <div class="stack-grid">
+        <article class="stack-card">
+          <div class="card-header">
+            <span>Languages &amp; Core</span>
+          </div>
+          <ul>
+            <li>Python</li>
+            <li>HTML / CSS</li>
+            <li>SQL</li>
+            <li>Bash</li>
+          </ul>
+        </article>
+        <article class="stack-card">
+          <div class="card-header">
+            <span>AI &amp; ML</span>
+          </div>
+          <ul>
+            <li>OpenAI</li>
+            <li>Anthropic Claude</li>
+            <li>Mistral</li>
+            <li>Ollama</li>
+            <li>LLM evaluation &amp; prompt design</li>
+          </ul>
+        </article>
+        <article class="stack-card">
+          <div class="card-header">
+            <span>Frameworks &amp; Tools</span>
+          </div>
+          <ul>
+            <li>Flask</li>
+            <li>SQLAlchemy</li>
+            <li>PyCharm</li>
+            <li>VS Code</li>
+            <li>Git / GitHub</li>
+          </ul>
+        </article>
+        <article class="stack-card">
+          <div class="card-header">
+            <span>Systems &amp; Infrastructure</span>
+          </div>
+          <ul>
+            <li>Linux</li>
+            <li>Windows Server</li>
+            <li>Cisco Networking</li>
+            <li>DNS / DHCP / Active Directory</li>
+            <li>Azure</li>
+            <li>VMware</li>
+            <li>Veeam</li>
+          </ul>
+        </article>
+        <article class="stack-card">
+          <div class="card-header">
+            <span>Methods &amp; Mindset</span>
+          </div>
+          <ul>
+            <li>Prompt Engineering</li>
+            <li>Context Engineering</li>
+            <li>Software Architecture foundations</li>
+            <li>Ethical AI</li>
+            <li>Agile ways of working</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="journey" class="section reveal">
+      <div class="section-heading">
+        <h2>Journey</h2>
+        <p>Milestones shaping a cross-disciplinary perspective.</p>
+      </div>
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="marker"></div>
+          <div class="timeline-content">
+            <h3>2025 – now · Application Developer Training (IHK)</h3>
+            <p>Training as Fachinformatiker für Anwendungsentwicklung with focus on Python, Java, networking, Linux, security, AI &amp; automation.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="marker"></div>
+          <div class="timeline-content">
+            <h3>2025 · AI Trainer – Outlier.ai (Freelance)</h3>
+            <p>Prompt engineering, evaluation and alignment work for LLMs.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="marker"></div>
+          <div class="timeline-content">
+            <h3>2021 – 2024 · System Engineer – Server / Storage &amp; Virtualization</h3>
+            <p>Enterprise programs across HPE, Pure Storage, VMware, Veeam and automation for platform reliability.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="marker"></div>
+          <div class="timeline-content">
+            <h3>2018 – 2021 · 1st Level Support</h3>
+            <p>Enterprise IT support for Exchange, telephony, Microsoft services and critical incident handling.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="marker"></div>
+          <div class="timeline-content">
+            <h3>2014 – 2018 · IT Technician – Field Service</h3>
+            <p>On-site support, maintenance and troubleshooting for diverse client environments.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" class="section reveal">
+      <div class="section-heading">
+        <h2>Projects</h2>
+        <p>Selected work and experiments exploring automation and Ethical AI.</p>
+      </div>
+      <div class="projects-grid">
+        <article class="project-card">
+          <div class="project-bar"></div>
+          <div class="project-body">
+            <h3>Tempest — Event Management Platform</h3>
+            <p>Flask web app orchestrating psytrance events, managing artists, tech riders, timetables and budgets.</p>
+            <ul>
+              <li>User authentication &amp; roles</li>
+              <li>SQLAlchemy models &amp; migrations</li>
+              <li>Tech rider submission workflow</li>
+              <li>Responsive UI for crew tools</li>
+            </ul>
+          </div>
+          <div class="project-tags">
+            <span>Python</span>
+            <span>Flask</span>
+            <span>SQLAlchemy</span>
+            <span>UI Design</span>
+          </div>
+        </article>
+        <article class="project-card">
+          <div class="project-bar"></div>
+          <div class="project-body">
+            <h3>Ethical AI Post Agent</h3>
+            <p>Python-based AI agent generating Ethical AI LinkedIn posts to spark awareness about bias, diversity and responsible AI.</p>
+            <ul>
+              <li>YAML-configured topic presets</li>
+              <li>LinkedIn integration workflow (planned)</li>
+              <li>Bias &amp; inclusivity narrative guidance</li>
+            </ul>
+          </div>
+          <div class="project-tags">
+            <span>Python</span>
+            <span>OpenAI</span>
+            <span>Automation</span>
+            <span>YAML</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="section reveal">
+      <div class="section-heading">
+        <h2>Contact</h2>
+        <p>Open to collaborations around automation, Ethical AI and resilient infrastructure.</p>
+      </div>
+      <div class="contact-cards">
+        <a class="contact-card" href="https://www.linkedin.com/in/philipp-prinzen-46a51a166/" target="_blank" rel="noopener">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.25 2.25 0 1 1 0 4.5 2.25 2.25 0 0 1 0-4.5zM3 9h4v12H3zM9.5 9h3.8v1.8h.05c.53-.95 1.82-1.95 3.74-1.95 4 0 4.74 2.63 4.74 6v6.15h-4v-5.45c0-1.3-.03-3-1.82-3-1.82 0-2.1 1.42-2.1 2.9V21H9.5z"/></svg>
+          </div>
+          <div class="contact-info">
+            <h3>LinkedIn</h3>
+            <p>Connect and explore collaborations.</p>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+        <a class="contact-card" href="https://github.com/shinanDev" target="_blank" rel="noopener">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.63 22.41c.57.11.78-.25.78-.55v-2.03c-3.18.69-3.85-1.37-3.85-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.72-1.55-2.54-.29-5.21-1.27-5.21-5.68 0-1.26.45-2.29 1.2-3.09-.12-.3-.52-1.52.12-3.16 0 0 .98-.31 3.2 1.18a11.06 11.06 0 0 1 5.82 0c2.22-1.49 3.2-1.18 3.2-1.18.64 1.64.24 2.86.12 3.16.75.8 1.2 1.83 1.2 3.09 0 4.42-2.68 5.38-5.23 5.66.41.35.77 1.05.77 2.12v3.14c0 .3.21.66.78.55A11.5 11.5 0 0 0 12 .5z"/></svg>
+          </div>
+          <div class="contact-info">
+            <h3>GitHub</h3>
+            <p>Code, experiments and open-source work.</p>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>“We don’t just build AI – we build the systems we will have to live with.”</p>
+    <p>Hamburg, Germany · Open to opportunities in AI &amp; Software Development</p>
+  </footer>
+
+  <button class="back-to-top" aria-label="Back to top">
+    ↑
+  </button>
+
+  <script src="script.js"></script>
 </body>
 </html>
